@@ -38,3 +38,14 @@ class DetalleVenta(Base):
 
     # Relaciones
     venta_rel = relationship("Venta", back_populates="detalles_venta")
+
+class Producto(Base):
+    __tablename__ = "Productos"
+
+    id_producto = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(100), nullable=False)
+    descripcion = Column(String(255), nullable=True)
+    precio = Column(DECIMAL(10, 2), nullable=False)
+
+    # Relaciones
+    detalles_venta = relationship("DetalleVenta", back_populates="producto_rel")
