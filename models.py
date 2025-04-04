@@ -38,14 +38,49 @@ class DetalleVenta(Base):
 
     # Relaciones
     venta_rel = relationship("Venta", back_populates="detalles_venta")
+    producto_rel = relationship("Producto", back_populates="detalles_venta")
+
 
 class Producto(Base):
-    __tablename__ = "Productos"
+    __tablename__ = "Productos"  # Note: changed to lowercase to match SQL convention
 
-    id_producto = Column(Integer, primary_key=True, index=True)
+    id_producto = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nombre = Column(String(100), nullable=False)
     descripcion = Column(String(255), nullable=True)
     precio = Column(DECIMAL(10, 2), nullable=False)
+    sucursal = Column(Integer, ForeignKey('sucursales.id_sucursal'), nullable=True)
+    fecha_creacion = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     # Relaciones
     detalles_venta = relationship("DetalleVenta", back_populates="producto_rel")
+    sucursal_rel = relationship("Sucursal", back_populates="productos")
+
+
+class Sucursal(Base):
+    __tablename__ = "Sucursal"
+
+    id_sucursal = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(100), nullable=False)
+    direccion = Column(String(255), nullable=False)
+    telefono = Column(String(20), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relaciones
+    productos = relationship("Producto", back_populates="sucursal_rel")
+    ventas = relationship("Venta", back_populates="sucursal_rel")
+
+
+class Empleado(Base):
+    __tablename__ = "Empleados"
+
+    id_empleado = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(100), nullable=False)
+    apellido = Column(String(100), nullable=False)
+    puesto = Column(String(50), nullable=False)
+    sucursal = Column(Integer, ForeignKey('sucursales.id_sucursal'), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relaciones
+    ventas = relationship("Venta", back_populates="empleado")
