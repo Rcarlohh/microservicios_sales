@@ -121,7 +121,7 @@ def health_check():
     return jsonify({'status': 'ok', 'message': 'Servicio operativo'}), 200
 
 
-@app.route('/api/ventas', methods=['GET'])
+@app.route('/ventas', methods=['GET'])
 def obtener_ventas():
     """Obtener todas las ventas"""
     try:
@@ -136,7 +136,7 @@ def obtener_ventas():
         return jsonify({'status': 'error', 'message': 'Error al obtener ventas'}), 500
 
 
-@app.route('/api/ventas/<int:venta_id>', methods=['GET'])
+@app.route('/ventas/<int:venta_id>', methods=['GET'])
 def obtener_venta(venta_id):
     """Obtener una venta específica por ID"""
     try:
@@ -153,7 +153,7 @@ def obtener_venta(venta_id):
         return jsonify({'status': 'error', 'message': f'Error al obtener venta {venta_id}'}), 500
 
 
-@app.route('/api/ventas', methods=['POST'])
+@app.route('/ventas', methods=['POST'])
 def crear_venta():
     """Crear una nueva venta con sus detalles"""
     try:
@@ -219,7 +219,7 @@ def crear_venta():
         return jsonify({'status': 'error', 'message': 'Error al crear la venta'}), 500
 
 
-@app.route('/api/ventas/<int:venta_id>', methods=['PUT'])
+@app.route('/ventas/<int:venta_id>', methods=['PUT'])
 def actualizar_venta(venta_id):
     """Actualizar una venta existente"""
     try:
@@ -277,7 +277,7 @@ def actualizar_venta(venta_id):
         return jsonify({'status': 'error', 'message': f'Error al actualizar la venta: {str(e)}'}), 500
 
 
-@app.route('/api/ventas/<int:venta_id>', methods=['DELETE'])
+@app.route('/ventas/<int:venta_id>', methods=['DELETE'])
 def eliminar_venta(venta_id):
     """Eliminar una venta y sus detalles"""
     try:
@@ -300,7 +300,7 @@ def eliminar_venta(venta_id):
         return jsonify({'status': 'error', 'message': f'Error al eliminar la venta: {str(e)}'}), 500
 
 
-@app.route('/api/ventas/por-fecha', methods=['GET'])
+@app.route('/ventas/por-fecha', methods=['GET'])
 def ventas_por_fecha():
     """Obtener ventas filtradas por fecha"""
     try:
@@ -332,7 +332,7 @@ def ventas_por_fecha():
         return jsonify({'status': 'error', 'message': f'Error al obtener ventas por fecha: {str(e)}'}), 500
 
 
-@app.route('/api/ventas/por-sucursal/<int:sucursal_id>', methods=['GET'])
+@app.route('/ventas/por-sucursal/<int:sucursal_id>', methods=['GET'])
 def ventas_por_sucursal(sucursal_id):
     """Obtener ventas filtradas por sucursal"""
     try:
@@ -349,7 +349,7 @@ def ventas_por_sucursal(sucursal_id):
         return jsonify({'status': 'error', 'message': f'Error al obtener ventas por sucursal: {str(e)}'}), 500
 
 
-@app.route('/api/detalles-venta/<int:venta_id>', methods=['GET'])
+@app.route('/detalles-venta/<int:venta_id>', methods=['GET'])
 def obtener_detalles_venta(venta_id):
     """Obtener detalles de una venta específica"""
     try:
